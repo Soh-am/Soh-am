@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tourist Safety Dashboard</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <style>
+    body { margin: 0; display: flex; font-family: Arial; }
+    #sidebar { width: 25%; background: #f8f9fa; padding: 10px; overflow-y: auto; }
+    #map { flex: 1; height: 100vh; }
+    .alert-box { background: red; color: white; padding: 5px; margin-top: 5px; border-radius: 5px; font-weight: bold; }
+    .battery { font-size: 12px; color: gray; }
+  </style>
+</head>
+<body>
+  <div id="sidebar">
+    <h3>🧑 Tourists</h3>
+    <ul id="tourist-list"></ul>
+    <h3>🚨 Alerts</h3>
+    <div id="alerts"></div>
+  </div>
+  <div id="map"></div>
+
+<script>
+  const map = L.map('map').setView([26.2, 92.9], 7);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  let markers = {};
+  const dangerLat = 26.45, dangerLon = 93.05;
+
+  async function loadTourists() {
+    const res = await fetch("http://127.0.0.1:8000/tourists");
+    const tourists = await res.json();
+    updateTouristList(tourists);
+  }
+
+  function updateTouristList(tourists) {
+    const list = document.getElementById("tourist-list");
+    list.innerHTML = "";
+    tourists.forEach(t => {
+      let li = document.createElement("li");
+      li.textContent = `${t.name} (Safety: ${t.safety_score})`;
+      let bat = document.createElement("span");
+      bat.className = "battery";
+      bat.textContent = ` 🔋 ${t.battery}%`;
+      li.appendChild(bat);
+      list.appendChild(li);
+
+      if (!markers[t.id]) {
+        markers[t.id] = L.marker([t.lat, t.lon]).addTo(map).bindPopup(`${t.name}`);
+      } else {
+        markers[t.id].setLatLng([t.lat, t.lon]);
+      }
+
+      const dist = map.distance([t.lat, t.lon], [dangerLat, dangerLon]);
+      if (dist < 5000) {
+        showAlert(`⚠️ ${t.name} entered a high-risk zone!`);
+      }
+      if (t.battery < 20) {
+        showAlert(`🔋 ${t.name}'s battery is critically low (${t.battery}%)!`);
+      }
+    });
+  }
+
+  function showAlert(msg) {
+    const alerts = document.getElementById("alerts");
+    const div = document.createElement("div");
+    div.className = "alert-box";
+    div.textContent = msg;
+    alerts.appendChild(div);
+    setTimeout(() => div.remove(), 5000);
+  }
+
+  loadTourists();
+
+  const ws = new WebSocket("ws://127.0.0.1:8000/ws");
+  ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    if (data.type === "update") {
+      showAlert(`📡 ${data.name} moved to [${data.lat.toFixed(3)}, ${data.lon.toFixed(3)}]`);
+      loadTourists();
+    }
+  };
+</script>
+</body>
+</html>

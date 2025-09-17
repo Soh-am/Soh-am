@@ -1,0 +1,255 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 16px;
+  --background: transparent;
+  --foreground: rgba(245, 245, 245, 0.95);
+  --card: rgba(0, 0, 0, 0.85);
+  --card-foreground: rgba(245, 245, 245, 0.95);
+  --popover: #1a1a1a;
+  --popover-foreground: #ffffff;
+  --primary: #22c55e;
+  --primary-foreground: #ffffff;
+  --secondary: #374151;
+  --secondary-foreground: #ffffff;
+  --muted: #374151;
+  --muted-foreground: #9ca3af;
+  --accent: #10b981;
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: rgba(75, 85, 99, 0.4);
+  --input: transparent;
+  --input-background: rgba(75, 85, 99, 0.15);
+  --switch-background: #4b5563;
+  --font-weight-medium: 600;
+  --font-weight-normal: 500;
+  --ring: transparent;
+  --chart-1: #22c55e;
+  --chart-2: #10b981;
+  --chart-3: #059669;
+  --chart-4: #047857;
+  --chart-5: #065f46;
+  --radius: 0.625rem;
+  --sidebar: #1f2937;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #22c55e;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #374151;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(75, 85, 99, 0.4);
+  --sidebar-ring: transparent;
+}
+
+.dark {
+  --background: transparent;
+  --foreground: rgba(245, 245, 245, 0.95);
+  --card: rgba(0, 0, 0, 0.90);
+  --card-foreground: rgba(245, 245, 245, 0.95);
+  --popover: #0f172a;
+  --popover-foreground: #ffffff;
+  --primary: #22c55e;
+  --primary-foreground: #ffffff;
+  --secondary: #1f2937;
+  --secondary-foreground: #ffffff;
+  --muted: rgba(31, 41, 55, 0.8);
+  --muted-foreground: #9ca3af;
+  --accent: rgba(31, 41, 55, 0.9);
+  --accent-foreground: #10b981;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: rgba(75, 85, 99, 0.3);
+  --input: rgba(31, 41, 55, 0.6);
+  --ring: transparent;
+  --font-weight-medium: 600;
+  --font-weight-normal: 500;
+  --chart-1: #22c55e;
+  --chart-2: #10b981;
+  --chart-3: #059669;
+  --chart-4: #047857;
+  --chart-5: #065f46;
+  --sidebar: #1f2937;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #22c55e;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: rgba(31, 41, 55, 0.9);
+  --sidebar-accent-foreground: #10b981;
+  --sidebar-border: rgba(75, 85, 99, 0.3);
+  --sidebar-ring: transparent;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    outline: transparent;
+  }
+
+  body {
+    @apply text-foreground;
+    background: transparent;
+  }
+
+  /* Remove hover border effects and ensure clean button styling */
+  button:hover,
+  .btn:hover,
+  [role="button"]:hover {
+    border-color: inherit !important;
+    outline: transparent !important;
+    box-shadow: none !important;
+  }
+
+  /* Professional green button styling */
+  .btn-primary,
+  button[class*="bg-green"],
+  button[class*="bg-primary"] {
+    background: linear-gradient(135deg, #22c55e 0%, #059669 100%) !important;
+    border: none !important;
+    color: #ffffff !important;
+  }
+
+  .btn-primary:hover,
+  button[class*="bg-green"]:hover,
+  button[class*="bg-primary"]:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+    border: none !important;
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+  }
+
+  /* Keep emergency buttons red */
+  .btn-destructive,
+  button[class*="bg-red"],
+  button[class*="bg-destructive"],
+  .emergency-button {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+    border: none !important;
+    color: #ffffff !important;
+  }
+
+  .btn-destructive:hover,
+  button[class*="bg-red"]:hover,
+  button[class*="bg-destructive"]:hover,
+  .emergency-button:hover {
+    background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%) !important;
+    border: none !important;
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+  }
+
+  /* Secondary button styling */
+  .btn-secondary,
+  button[class*="variant-outline"] {
+    background: rgba(34, 197, 94, 0.1) !important;
+    border: 1px solid rgba(16, 185, 129, 0.3) !important;
+    color: #10b981 !important;
+  }
+
+  .btn-secondary:hover,
+  button[class*="variant-outline"]:hover {
+    background: rgba(34, 197, 94, 0.2) !important;
+    border: 1px solid rgba(16, 185, 129, 0.3) !important;
+    color: #10b981 !important;
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+  }
+}
+
+/**
+ * Base typography. This is not applied to elements which have an ancestor with a Tailwind text class.
+ */
+@layer base {
+  :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) {
+    h1 {
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    h2 {
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    h3 {
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    h4 {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    p {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-normal);
+      line-height: 1.5;
+    }
+
+    label {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    button {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    input {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-normal);
+      line-height: 1.5;
+    }
+  }
+}
+
+html {
+  font-size: var(--font-size);
+}
