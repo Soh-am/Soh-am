@@ -1,7 +1,7 @@
 
   # Smart Tourist Safety System
 
-  This is a code bundle for Smart Tourist Safety System. The original project is available at https://www.figma.com/design/dEH7NKPg5v3BWO5gKc6blz/Smart-Tourist-Safety-System.
+  This is a code bundle for Smart Tourist Safety System. The original project is available now.
 
   ## Running the code
 
